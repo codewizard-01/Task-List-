@@ -8,7 +8,10 @@
 </head>
 
 <body>
-  <h1>Show page</h1>
+  <h1>{{$tasks->title}}</h1>
+  <p>{{$tasks->description}}</p>
+  <p>{{$tasks->created_at}}</p>
+  <p>{{$tasks->updated_at}}</p>
 </body>
 
 </html>

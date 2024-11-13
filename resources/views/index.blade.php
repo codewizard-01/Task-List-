@@ -13,5 +13,9 @@
 
 <!-- The below section is for content -->
 @section("content")
-<h2>The content comes here</h2>
+<h2>Tasks List</h2>
+@foreach($tasks as $task)
+<a href="{{route("tasks.show", ["id"=>$task->id])}}">{{$task->title}}</a><br />
+@endforeach
+
 @endsection
