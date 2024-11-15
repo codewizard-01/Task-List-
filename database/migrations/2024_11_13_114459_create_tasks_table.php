@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("title");
             $table->text("description");
             $table->text("log_description")->nullable();
-            $table->boolean("completed")->defauld();
+            $table->boolean("completed")->nullable()->default(false);
 
             $table->timestamps();
         });

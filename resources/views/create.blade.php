@@ -3,11 +3,12 @@
 @section("title", "Create Page")
 
 @section("content")
-<form method="POST" action="{{route("tasks.create")}}">
+{{$errors}}
+<form method="POST" action="{{route("tasks.store")}}">
   @csrf
   <div>
-    <label for="name">title</label>
-    <input name="name" id="name">
+    <label for="title">title</label>
+    <input name="title" id="title">
   </div>
   <div>
     <Label for="description">description</Label>
