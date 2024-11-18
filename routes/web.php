@@ -17,15 +17,15 @@ Route::get("/tasks", function() {
 
 Route::view("/tasks/create", 'create')->name("tasks.create");
 
-Route::get("/tasks/{id}/edit", function ($id){
+Route::get("/tasks/{task}/edit", function (Task $task){
   return view("edit", [
-    "tasks"=>Task::findOrFail($id)
+    "tasks"=>$task
   ]);
 })->name("tasks.edit");
 
-Route::get("/tasks/{id}", function ($id){
+Route::get("/tasks/{task}", function (Task $task){
   return view("show", [
-    "tasks"=>Task::findOrFail($id)
+    "tasks"=>$task
   ]);
 })->name("tasks.show");
 
@@ -43,24 +43,24 @@ Route::post("/tasks", function(Request $request) {
   $task->completed = false;
   $task->save();
 
-  return redirect()->route("tasks.show", ["id"=>$task->id])->with("success", "Task Created Successfully.");
+  return redirect()->route("tasks.show", ["task"=>$task->id])->with("success", "Task Created Successfully.");
 })->name("tasks.store");
 
-Route::put("/tasks/{id}", function($id, Request $request) {
+Route::put("/tasks/{task}", function(Task $task, Request $request) {
   $data = $request->validate([
     "title"=>"required", 
     "description"=>"required", 
     "long_description"=>"required",
   ]); 
 
-  $task = Task::findorFail($id);
   $task->title = $data["title"];
   $task->description = $data["description"];
   $task->log_description = $data["long_description"];
   $task->completed = false;
   $task->save();
 
-  return redirect()->route("tasks.show", ["id"=>$task->id])->with("success", "Task updated Successfully.");
+  return redirect()->route("tasks.show", ["task"=>$task->id])->with("success", "Task updated Successfully.");
 })->name("tasks.update");
+
 
 ?>

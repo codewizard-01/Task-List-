@@ -13,7 +13,7 @@
 
 @section("content")
 
-<form method="POST" action="{{route("tasks.update", ["id" => $tasks->id])}}">
+<form method="POST" action="{{route("tasks.update", ["task" => $tasks->id])}}">
   @csrf
   @method("PUT")
   <div>
