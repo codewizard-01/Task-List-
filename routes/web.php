@@ -2,6 +2,7 @@
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,13 +30,8 @@ Route::get("/tasks/{task}", function (Task $task){
   ]);
 })->name("tasks.show");
 
-Route::post("/tasks", function(Request $request) {
-  $data = $request->validate([
-    "title"=>"required", 
-    "description"=>"required", 
-    "long_description"=>"required",
-  ]); 
-
+Route::post("/tasks", function(TaskRequest $request) {
+  $data = $request->validated(); 
   $task = new Task;
   $task->title = $data["title"];
   $task->description = $data["description"];
@@ -46,13 +42,8 @@ Route::post("/tasks", function(Request $request) {
   return redirect()->route("tasks.show", ["task"=>$task->id])->with("success", "Task Created Successfully.");
 })->name("tasks.store");
 
-Route::put("/tasks/{task}", function(Task $task, Request $request) {
-  $data = $request->validate([
-    "title"=>"required", 
-    "description"=>"required", 
-    "long_description"=>"required",
-  ]); 
-
+Route::put("/tasks/{task}", function(Task $task, TaskRequest $request) {
+  $data = $request->validated(); 
   $task->title = $data["title"];
   $task->description = $data["description"];
   $task->log_description = $data["long_description"];
